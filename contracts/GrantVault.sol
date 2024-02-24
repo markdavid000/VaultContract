@@ -47,4 +47,12 @@ contract GrantVault {
 
         emit GrantClaimed(msg.sender, grant.grantAmount);
     }
+
+    function getGrant(address _beneficiary) external view returns(Grant[] memory) {
+        return grants[_beneficiary];
+    }
+
+    function getGrantCount(address _beneficiary) external view returns(uint256) {
+        return grants[_beneficiary].length;
+    }
 }
