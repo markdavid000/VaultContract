@@ -35,4 +35,16 @@ contract GrantVault {
 
         emit GrantCreated(msg.sender, _beneficiary, msg.value, _releaseTime);
     }
+
+    function claimGrant(uint _grantIndex) external {
+        require(_grantIndex < grants[msg.sender].length, "Invalid grant Index");
+        require(!grants[msg.sender][_grantIndex].claimed, "This grant has already been claimed");
+        require(block.timestamp >= grants[msg.sender][_grantIndex].releaseTime, "Grant not yet available for claim");
+
+        Grant memory grant = grants[msg.sender][_grantIndex];
+        grant.claimed = true;
+        payable(msg.sender).transfer(grant.grantAmount);
+
+        emit GrantClaimed(msg.sender, grant.grantAmount);
+    }
 }
