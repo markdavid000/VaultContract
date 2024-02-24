@@ -18,8 +18,13 @@ const main = async () => {
   );
   offerGrantTx.wait();
 
+  //   const grantsBeforeClaim = await GRANT_VAULT_CONTRACT.getGrant(beneficiary);
+
   const claimGrantTx = await GRANT_VAULT_CONTRACT.claimGrant(0);
   claimGrantTx.wait();
+
+//   const grantsAfterClaim = await GRANT_VAULT_CONTRACT.getGrant(beneficiary);
+//   grantsAfterClaim[0].claimed == false;
 
   const getGrantTx = await GRANT_VAULT_CONTRACT.getGrant(beneficiary);
   console.log(getGrantTx);
